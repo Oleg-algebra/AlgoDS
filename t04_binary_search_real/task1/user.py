@@ -2,17 +2,19 @@
 Для монотонної на відрізку [a, b] функції f розв'яжіть рівняння
                      f(x) = c
 """
+
+
 def argument(f,m,l,r,eps,c):
     return r - l > eps
 
 def value(f,m,l,r,eps,c):
-    return abs(f(m)-c) > eps
+    return abs(f(m) - c) > eps
 
 def neighbours(f,m,l,r,eps,c):
     return m != l and m != r
 
-condition = value
 
+condition = argument
 
 def solve(f, c, a, b):
     """ Для неспадної на відрізку [a, b] функції f розв'язує рівняння
@@ -24,12 +26,13 @@ def solve(f, c, a, b):
     :param b: Права межа проміжку на якому здійснюється пошук
     :return: Розв'язок рівняння
     """
-    eps = 1e-11
+    eps = 1e-15
+
     left = a
     right = b
 
-    m = left + (right - left) / 2.0
     count = 0
+    m = (left + right) / 2.0
     while condition(f,m,left,right,eps,c):
         count += 1
         if f(m) < c:
@@ -37,10 +40,10 @@ def solve(f, c, a, b):
         else:
             right = m
 
-        m = (left + right ) / 2.0
-    print(count)
-    return m
+        m = (left + right) / 2.0
 
+    print(f"count: {count}")
+    return m
 
 
 def solve_decreasing(f, c, a, b):
@@ -53,5 +56,24 @@ def solve_decreasing(f, c, a, b):
     :param b: Права межа проміжку на якому здійснюється пошук
     :return: Розв'язок рівняння
     """
-    f1 = lambda x: (-1)*f(x)
-    return solve(f1, -c, a, b)
+    # f1 = lambda x: f(x) * (-1)
+    # return solve(f1,-c,a,b)
+
+    eps = 1e-15
+
+    left = a
+    right = b
+
+    count = 0
+    m = (left + right) / 2.0
+    while condition(f, m, left, right, eps, c):
+        count += 1
+        if f(m) > c:
+            left = m
+        else:
+            right = m
+
+        m = (left + right) / 2.0
+
+    print(f"count: {count}")
+    return m
