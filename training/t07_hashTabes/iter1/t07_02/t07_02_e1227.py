@@ -77,20 +77,15 @@ class Set:
     def __contains__(self, key):
         return False if self.get(key) is None else True
 
-    def __iter__(self):
-        res = []
-        for i in range(self._size):
-            if self._words[i] is not EMPTY:
-                res.append(self._words[i])
-        return iter(res)
+    # def __iter__(self):
+    #     res = []
+    #     for i in range(self._size):
+    #         if self._words[i] is not EMPTY:
+    #             res.append(self._words[i])
+    #     return iter(res)
 
 if __name__ == '__main__':
-    f = open("input.txt")
     dct = Set()
-
-
-
-    # lines = f.readlines()
     for line in sys.stdin:
         words = re.findall(r'[a-zA-Z]+', line)
         for word in words:
@@ -101,4 +96,3 @@ if __name__ == '__main__':
     words_sorted = sorted(dct.keys())
     for word in words_sorted:
         print(word)
-    f.close()
