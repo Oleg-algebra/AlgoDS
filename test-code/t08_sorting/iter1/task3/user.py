@@ -1,7 +1,5 @@
-import numpy as np
-
 """
-Реалізуйте алгоритм сортування обміном (бульбашкове сортування).
+Реалізуйте алгоритм сортування вибором.
 """
 
 N = 5000     # Кількість елементів масиву.
@@ -17,14 +15,17 @@ def sort(array):
     :param array: Вхідний масив даних, що треба відсортувати.
     """
     n = len(array)
-    for pass_num in range(n-1, 0,-1):
-        for i in range(pass_num):
-            if array[i] > array[i+1]:
-                array[i],array[i+1] = array[i+1],array[i]
+    for j in range(n - 1, 0, -1):
+        pos = 0
+        for i in range(1, j + 1):
+            if array[i] > array[pos]:
+                pos = i
+        array[pos], array[j] = array[j], array[pos]
+        print(array)
 
-        # print(array)
 if __name__ == "__main__":
 
-    array_list = np.random.randint(-20,20,10)
-    print(array_list)
-    sort(array_list)
+    arr = [9, 1, -1, 20, 19, 10, -5, 13, 7]
+    print(arr)
+    sort(arr)
+
