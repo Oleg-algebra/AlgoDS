@@ -19,7 +19,7 @@ def sort(array):
     for i in range(n - 1,0,-1):
         pos = 0
         for j in range(1,i+1):
-            if array[pos] > array[j]:
+            if array[pos] < array[j]:
                 pos = j
         array[pos],array[i] = array[i],array[pos]
         # print(array)
@@ -29,3 +29,4 @@ if __name__ == "__main__":
     # arr = sorted(arr)
     print(arr)
     sort(arr)
+    print(arr)
