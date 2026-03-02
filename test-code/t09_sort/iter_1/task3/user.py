@@ -164,7 +164,7 @@ def _quick_sort(array,a,b):
     if a >= b:
         return
 
-    pivot = array[a + (b - a) // 2]
+    pivot = array[a]
     left = a
     right = b
 
