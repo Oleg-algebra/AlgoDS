@@ -5,7 +5,7 @@
 масив відсортований за спаданням елементів).
 """
 
-N = 10000     # Кількість елементів масиву.
+N = 5000     # Кількість елементів масиву.
               # Використовується у головній програмі для генерування
               # масиву з випадкових чисел
 
@@ -15,7 +15,12 @@ def bubble_sort(array):
 
     :param array: Масив (список однотипових елементів)
     """
-    pass
+    n = len(array)
+    for j in range(n, 0, -1):
+        for i in range(1, j):
+            if array[i - 1] > array[i]:
+                array[i - 1], array[i] = array[i], array[i - 1]
+        # print(array)
 
 
 def bubble_sort_optimized(array):
@@ -23,7 +28,16 @@ def bubble_sort_optimized(array):
 
     :param array: Вхідний масив даних, що треба відсортувати.
     """
-    pass
+    n = len(array)
+    for j in range(n, 0, -1):
+        is_sorted = True
+        for i in range(1, j):
+            if array[i - 1] > array[i]:
+                array[i - 1], array[i] = array[i], array[i - 1]
+                is_sorted = False
+
+        if is_sorted:
+            return
 
 
 def selection_sort(array):
@@ -32,7 +46,14 @@ def selection_sort(array):
     :param array: Масив (список однотипових елементів)
     :return: None
     """
-    pass
+    n = len(array)
+
+    for j in range(n - 1, 0, -1):
+        pos = 0
+        for i in range(1, j + 1):
+            if array[i] > array[pos]:
+                pos = i
+        array[pos], array[j] = array[j], array[pos]
 
 
 def insertion_sort(array):
@@ -41,7 +62,18 @@ def insertion_sort(array):
     :param array: Масив (список однотипових елементів)
     :return: None
     """
-    pass
+    n = len(array)
+    for i in range(1, n):
+        pos = i
+        x = array[pos]
+        while pos > 0:
+            if array[pos - 1] > x:
+                array[pos] = array[pos - 1]
+            else:
+                break
+            pos -= 1
+        array[pos] = x
+        # print(array)
 
 
 def merge_sort(array):
@@ -50,7 +82,79 @@ def merge_sort(array):
     :param array: Масив (список однотипових елементів)
     :return: None
     """
-    pass
+    if len(array) > 1:
+        # print(f"array {array}")
+        m = len(array) // 2
+        left = array[:m]
+        right = array[m:]
+        # print(f"Splitting: {left} {right}")
+        merge_sort(left)
+        merge_sort(right)
+
+        # print(f"Merging: {left} {right}")
+
+        i = j = k = 0
+
+        while i < len(left) and j < len(right):
+            if left[i] < right[j]:
+                array[k] = left[i]
+                i += 1
+
+            else:
+                array[k] = right[j]
+                j += 1
+
+            k += 1
+
+        while i < len(left):
+            array[k] = left[i]
+            i += 1
+            k += 1
+
+        while j < len(right):
+            array[k] = right[j]
+            j += 1
+            k += 1
+
+def merge_sort_optimized(array):
+    """ Сортування масиву
+    :param array: Вхідний масив даних, що треба відсортувати.
+    """
+    _merge_sort_optimized(array,0,len(array) - 1)
+
+def _merge_sort_optimized(array, a, b):
+
+    if a >= b:
+        return
+
+    m = a + (b - a) // 2
+
+
+
+    _merge_sort_optimized(array,a,m)
+    _merge_sort_optimized(array,m + 1,b)
+
+
+    left = array[a: m + 1]
+
+    i = 0
+    j = m + 1
+    k = a
+    while i < len(left) and j <= b:
+        if left[i] < array[j]:
+            array[k] = left[i]
+            i += 1
+
+        else:
+            array[k] = array[j]
+            j += 1
+
+        k += 1
+
+    while i < len(left):
+        array[k] = left[i]
+        i += 1
+        k += 1
 
 
 def quick_sort(array):
@@ -59,5 +163,32 @@ def quick_sort(array):
         :param array: Масив (список однотипових елементів)
         :return: None
         """
-    pass
+    return _quick_sort(array, 0, len(array) - 1)
+
+
+def _quick_sort(array, a, b):
+    if a >= b:
+        return
+
+    pivot = array[a + (b - a) // 2]
+    left = a
+    right = b
+    # print(array[a: b + 1], a, b, f"pivot: {pivot}")
+    while True:
+
+        while array[left] < pivot:
+            left += 1
+
+        while array[right] > pivot:
+            right -= 1
+
+        if left >= right:
+            break
+
+        array[left], array[right] = array[right], array[left]
+        left += 1
+        right -= 1
+    # print(array[a:right + 1], array[right + 1: b + 1])
+    _quick_sort(array, a, right)
+    _quick_sort(array, right + 1, b)
 

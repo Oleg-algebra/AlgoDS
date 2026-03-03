@@ -47,7 +47,8 @@ def _quick_sort(array,a,b):
 
 
 if __name__ == "__main__":
-    array = [3,7,4,0,-1,30,25,38,-9]
+    # array = [3,7,4,0,-1,30,25,38,-9]
+    array = [33,12,66,20,56,95,32,13,10]
     print(array)
     sort(array)
     print(array)

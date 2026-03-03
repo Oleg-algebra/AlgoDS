@@ -33,6 +33,7 @@ sorting_method = [
                   user.selection_sort,
                   user.insertion_sort,
                   user.merge_sort,
+                  user.merge_sort_optimized,
                   user.quick_sort]
 
 
