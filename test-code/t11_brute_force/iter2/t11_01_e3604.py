@@ -1,18 +1,18 @@
 
 alphabet: list[str]
-N: int
+n: int
 k: int
 count: int = 0
 
-def solve(word: str):
+def solve(word: str) -> str:
     global count
 
 
-    if len(word) == N:
-
+    if len(word) == n:
         count += 1
         # print(count, word)
         return word
+
 
     for letter in alphabet:
         if letter not in word:
@@ -20,8 +20,11 @@ def solve(word: str):
             if count == k:
                 return res
 
-if __name__ == "__main__":
-    N,k = map(int,input().strip().split())
 
-    alphabet = [chr(ord("a") + i) for i in range(N)]
+
+if __name__ == "__main__":
+    n,k = map(int,input().split())
+
+    alphabet = [chr(ord("a") + i) for i in range(n)]
+
     print(solve(""))

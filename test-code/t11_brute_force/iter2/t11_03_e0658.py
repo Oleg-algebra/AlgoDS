@@ -1,32 +1,36 @@
 
-FIRST = 1
-SECOND = 2
-DRAW = 0
-
-k:int
 XX = "X"
 OO = "O"
+FIRST: int = 1
+SECOND: int = 2
+DRAW: int = 0
+
+k:int
 
 def solve(state: str, turn: int) -> int:
+
     # print(state,turn)
     i = -1
     while True:
+
         i = state.find(OO,i + 1)
         if i == -1:
             break
 
         sub_state = state[:i] + XX + state[i + k:]
         sub_turn = FIRST if turn == SECOND else SECOND
+
         if solve(sub_state,sub_turn) == turn:
             return turn
 
-    return FIRST if turn == SECOND else SECOND
 
+
+    return SECOND if turn == FIRST else FIRST
 
 
 if __name__ == "__main__":
     with open("input.txt") as f:
-        n,k = map(int,f.readline().split())
+        n,k = map(int,f.readline().strip().split())
         state = f.readline()
 
         XX *= k
