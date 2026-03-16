@@ -1,4 +1,3 @@
-from inspect import stack
 
 
 def solve(nums: int, pieces: int, value: int):
