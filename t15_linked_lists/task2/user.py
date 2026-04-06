@@ -5,16 +5,18 @@
 Реалізуйте структуру даних зв'язний (однозв'язний) список з поточним елементом.
 """
 
+
 class Node:
-    def __init__(self,item):
+    def __init__(self, item):
         self.item = item
         self.next = None
+
 
 class LinkedList:
 
     def __init__(self):
-        self._front: [Node | None] = None
-        self._curr: [Node | None] = None
+        self._front = None
+        self._curr = None
 
     def empty(self):
         return self._front is None
@@ -24,15 +26,16 @@ class LinkedList:
 
     def next(self):
         if self.empty() or self._curr.next is None:
-             raise StopIteration
+            raise StopIteration
+
         self._curr = self._curr.next
 
     def current(self):
         return self._curr.item
 
-    def insert_after(self,item):
-
+    def insert_after(self, item):
         node = Node(item)
+
         if self.empty():
             self._curr = self._front = node
             return
@@ -40,7 +43,46 @@ class LinkedList:
         node.next = self._curr.next
         self._curr.next = node
 
+    def insert_before(self,item):
+        self.insert_after(item)
+        if self._curr.next is not None:
+            self._curr.item, self._curr.next.item =  self._curr.next.item, self._curr.item
+            self._curr = self._curr.next
+
+
+    def delete(self):
+        if self.empty():
+            return
+
+        if self._front is self._curr:
+            self._front = self._curr = self._front.next
+            return
+
+        prev = self._front
+
+        while prev.next is not self._curr:
+
+            prev = prev.next
+
+        prev.next = self._curr.next
+
+        if self._curr.next is None:
+            self._curr = prev
+        else:
+            self._curr = self._curr.next
+
+
+    def damp(self):
+        container = []
+        pointer = self._front
+        while pointer is not None:
+            container.append(pointer.item)
+            pointer = pointer.next
+
+        return container
+
 lst: LinkedList
+
 
 def init():
     """ Викликається один раз на початку виконання програми. """
@@ -89,3 +131,29 @@ def insert_after(item):
     :param item: елемент, що вставляється у список
     """
     lst.insert_after(item)
+
+
+def insert_before(item):
+    """ Вставляє новий елемент у список перед поточним.
+
+    :param item: елемент, що вставляється у список
+    """
+    lst.insert_before(item)
+
+
+def delete():
+    """ Видаляє поточний елемент.
+
+    Поточним при цьому стає наступний елемент, що йшов у списку після поточного.
+    Якщо елемент, що видаляється був у списку останнім, то поточним стає передостанній елемент цього списку.
+    Гарантується, що функція не буде викликана, якщо список порожній.
+    """
+    lst.delete()
+
+
+def damp():
+    """ Повертає масив у якому записані всі елементи поточного списку.
+
+    :return: список list елементів списку
+    """
+    return lst.damp()

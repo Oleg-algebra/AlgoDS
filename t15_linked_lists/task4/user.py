@@ -14,6 +14,7 @@ class DoublyLinkedList:
         self._front: Node | None = None
         self._last: Node | None = None
         self._curr: Node | None = None
+        self._size = 0
 
     def empty(self):
         return self._front is None
@@ -39,7 +40,7 @@ class DoublyLinkedList:
 
 
     def insert_after(self,item):
-
+        self._size += 1
         node = Node(item)
         if self.empty():
             self._curr = self._front = self._last = node
@@ -57,7 +58,7 @@ class DoublyLinkedList:
         self._curr.next = node
 
     def insert_before(self,item):
-
+        self._size += 1
         node = Node(item)
         if self.empty():
             self._curr = self._front = self._last = node
@@ -70,7 +71,6 @@ class DoublyLinkedList:
             self._front = node
         else:
             self._curr.prev.next = node
-
         self._curr.prev = node
 
 
@@ -78,6 +78,7 @@ class DoublyLinkedList:
         if self.empty():
             return
 
+        self._size -= 1
         if self._front is self._last:
             self._front = self._curr = self._last = self._front.next
             return
@@ -96,6 +97,39 @@ class DoublyLinkedList:
             self._curr = self._curr.prev
         else:
             self._curr = self._curr.next
+
+    def damp(self):
+
+        container = []
+        pointer = self._front
+        while pointer is not None:
+            container.append(pointer.item)
+
+            pointer = pointer.next
+
+        return container
+
+    def len(self):
+        return self._size
+
+    def swap_prev(self):
+        if self.empty() or self._curr is self._front:
+            return
+
+        self.prev()
+        item = self.current()
+        self.delete()
+        self.insert_after(item)
+
+    def swap_next(self):
+        if self.empty() or self._curr is self._last:
+            return
+
+        item = self.current()
+        self.delete()
+        self.insert_after(item)
+        self.next()
+
 
 
 lst: DoublyLinkedList
@@ -183,3 +217,35 @@ def delete():
     Гарантується, що функція не буде викликана, якщо список порожній.
     """
     lst.delete()
+
+
+def damp():
+    """ Повертає масив у якому записані всі елементи поточного списку.
+
+    :return: список list елементів списку
+    """
+    return lst.damp()
+
+
+def len():
+    """ Повертає кількість елементів у списку
+
+    :return: кількість елементів у списку
+    """
+    return lst.len()
+
+
+def swap_prev():
+    """ Міняє місцями поточний елемент списку з попереднім
+    Гарантується, що виклик функції здійснюється лише, якщо поточний елемент не перший у списку
+    Поточний елемент лишається не змінним
+    """
+    lst.swap_prev()
+
+
+def swap_next():
+    """ Міняє місцями поточний елемент списку з наступним
+    Гарантується, що виклик функції здійснюється лише, якщо поточний елемент не останній у списку
+    Поточний елемент лишається не змінним
+    """
+    lst.swap_next()

@@ -13,8 +13,8 @@ class Node:
 class LinkedList:
 
     def __init__(self):
-        self._front: [Node | None] = None
-        self._curr: [Node | None] = None
+        self._front = None
+        self._curr = None
 
     def empty(self):
         return self._front is None
@@ -24,21 +24,25 @@ class LinkedList:
 
     def next(self):
         if self.empty() or self._curr.next is None:
-             raise StopIteration
+            raise StopIteration
+
         self._curr = self._curr.next
 
     def current(self):
         return self._curr.item
 
-    def insert_after(self,item):
 
+    def insert_after(self, item):
         node = Node(item)
+
         if self.empty():
             self._curr = self._front = node
             return
 
         node.next = self._curr.next
         self._curr.next = node
+
+
 
 lst: LinkedList
 
