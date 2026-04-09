@@ -7,7 +7,7 @@ class Tree:
         self.key = key
         self.parent = parent
         self.children: list[Tree] = []
-        self.search_method = self.bfs
+        self.search_method = self.dfs_stack
 
     def dfs(self, key):
         if self.key == key:
@@ -44,7 +44,6 @@ class Tree:
 
 
     def get(self,a,b):
-        self.search_method = self.dfs_stack
         node = self.search_method(a)
         came_from = None
         while node is not None:
