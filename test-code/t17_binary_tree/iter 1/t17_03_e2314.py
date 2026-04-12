@@ -3,13 +3,12 @@
 
 class BinaryTree:
 
-    def __init__(self,key, parent = None):
+    def __init__(self,key):
 
         self.key = key
         self.left = None
         self.right = None
         self.size = 1
-        self.parent = parent
 
     def insert(self,key):
         node = self
@@ -18,7 +17,7 @@ class BinaryTree:
                 if node.left is not None:
                     node = node.left
                 else:
-                    node.left = BinaryTree(key, node)
+                    node.left = BinaryTree(key)
                     self.size += 1
                     break
 
@@ -26,7 +25,7 @@ class BinaryTree:
                 if node.right is not None:
                     node = node.right
                 else:
-                    node.right = BinaryTree(key, node)
+                    node.right = BinaryTree(key)
                     self.size += 1
                     break
             else:
