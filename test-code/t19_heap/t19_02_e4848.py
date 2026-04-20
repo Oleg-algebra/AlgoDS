@@ -17,7 +17,7 @@ class MaxHeap:
     def extract_maximum(self) -> int:
         self.swap(0,-1)
         item = self._items.pop()
-        self.siftDown(0)
+        self.siftDown(0,len(self._items))
         return item
 
     def parent(self,idx: int) -> int:
