@@ -1,45 +1,54 @@
 
-WHITE = 0   # не відвідували
-GREY = 1    # в процесі обробки
-BLACK = 2   # завершено обробку
-
+WHITE = 0
+BLACK = 1
+GREY = 2
 
 class Graph:
-    def __init__(self, adjacency_matrix):
-        self.matrix = adjacency_matrix
-        self.n = len(adjacency_matrix)
 
-    def dfs(self, i, vertices):
-        vertices[i] = GREY
-        for j in range(self.n):
-            if self.matrix[i][j] == 1:
-                # Якщо вершина біла, йдемо в рекурсію
-                if vertices[j] == WHITE:
-                    if self.dfs(j, vertices):
-                        return True
-                # Якщо зустріли сіру — це зворотне ребро (цикл)
-                elif vertices[j] == GREY:
-                    return True
-
-        vertices[i] = BLACK
-        return False
+    def __init__(self,matrix):
+        self.matrix = matrix
+        self.n = len(matrix)
 
     def has_cycle(self):
-        vertices = [WHITE for _ in range(self.n)]
-        for i in range(self.n):
-            if vertices[i] == WHITE:
-                if self.dfs(i, vertices):
+        colors = [WHITE for _ in range(self.n)]
+        for j in range(self.n):
+            if colors[j] == WHITE:
+                if self.dfs(j, colors):
                     return True
+
         return False
+
+    def dfs(self, start, colors):
+
+        # print(f"--> {start + 1}")
+        colors[start] = GREY
+        for j in range(self.n):
+            if self.matrix[start][j] == 1:
+                if colors[j] == WHITE:
+                    if self.dfs(j, colors):
+                        return True
+                elif colors[j] == GREY:
+                    return True
+
+
+        # print(f"<-- {start + 1}(exit)")
+        colors[start] = BLACK
+        return False
+
 
 
 if __name__ == "__main__":
     with open("input.txt") as f:
         n = int(f.readline().strip())
-        matrix = []
-        for _ in range(n):
-            row = [int(a) for a in f.readline().split()]
-            matrix.append(row)
+
+        matrix = [
+            list(map(int,f.readline().split())) for _ in range(n)
+        ]
 
         graph = Graph(matrix)
         print(int(graph.has_cycle()))
+
+
+
+
+
