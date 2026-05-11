@@ -56,7 +56,7 @@ class Maze:
             count += 1
 
             # Візуалізуємо кожен крок
-            # self._draw(wandering, (i, j))
+            self._draw(wandering, (i, j))
             wandering[i][j] = VISITED
 
             for di, dj in self.directions:
@@ -72,6 +72,7 @@ class Maze:
 
 
 if __name__ == "__main__":
+    # time.sleep(2)
     with open("input.txt") as f:
         n = int(f.readline().strip())
 
