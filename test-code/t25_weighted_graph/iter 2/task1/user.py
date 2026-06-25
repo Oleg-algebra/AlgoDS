@@ -2,7 +2,6 @@
 Нехай задано орієнтований зважений граф.
 Знайдіть довжину найкоротшого шляху між двома заданими вузлами цього графа
 """
-from enum import Flag
 from math import inf
 
 graph: dict
@@ -59,7 +58,7 @@ def findDistance(start, end):
                     is_relaxed = False
 
 
-                # print(distances)
+            print(distances)
                 # print(f"iter: {_}, source: {i}, dest: {j}, dist: {distances}")
 
         if is_relaxed:
@@ -74,16 +73,15 @@ def findDistance(start, end):
         return -1
 if __name__ == "__main__":
     init(6, 0)
-    addEdge(1, 2, 8)
-    addEdge(1, 3, 7)
-    addEdge(1, 4, 2)
-    addEdge(1, 5, 1)
-    addEdge(2, 6, 5)
-    addEdge(2, 5, 2)
-    addEdge(3, 4, 3)
-    addEdge(4, 3, 3)
-    addEdge(4, 5, 4)
-    addEdge(5, 2, 2)
-    addEdge(5, 6, 10)
+    addEdge(2, 1, -2)
+    addEdge(3, 2, -1)
+    addEdge(3, 1, 7)
+    addEdge(4, 3, -2)
+    addEdge(4, 2, 5)
+    addEdge(5, 3, 8)
+    addEdge(5, 4, -1)
+    addEdge(6, 1, 15)
+    addEdge(6, 4, 4)
+    addEdge(6, 5, -2)
     # print(graph)
-    print(findDistance(1, 6))
+    print(findDistance(6, 1))
